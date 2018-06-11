@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: service-workflow
+  cloud:
+    config:
+      label: master
+      uri: http://localhost:8300/
+      profile: dev

@@ -1,0 +1,27 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+
+server:
+  port: 8100
+
+spring:
+  application:
+    name: service-zuul
+
+#路由匹配规则：
+#/user-service/? 很少用，支持/user-service/后拼接任意一个字符，例如/user-service/a、/user-service/1，不支持/user-service/123
+#/user-service/* 较少用，支持/user-service/后拼接任意一个字符例如/user-service/abc、/user-service/1，不支持多级目录/user-service/abc/b
+#/user-service/** 通用，只要以/user-service/开头就可以，后面路径没要求。
+#如果路由规则有交集的部分，只能使用YAML文件来做application的配置文件，不能使用properties，因为YAML是有序的（流解析），properties无序的（HashMap）。
+
+zuul:
+  routes:
+    api-workflow:  #工作流模块
+      path: /api-workflow/**
+      serviceId: service-workflow
+    api-system:    #系统管理模块
+          path: /api-system/**
+          serviceId: service-system
+
